@@ -1,0 +1,115 @@
+branch-protection:
+  orgs:
+    dconde-jx-test:
+      repos:
+        environment-houndautumn-dev:
+          required_status_checks:
+            contexts:
+            - promotion-build
+        environment-houndautumn-production:
+          required_status_checks:
+            contexts:
+            - promotion-build
+        environment-houndautumn-staging:
+          required_status_checks:
+            contexts:
+            - promotion-build
+    jenkins-x:
+      repos:
+        dummy:
+          required_status_checks:
+            contexts:
+            - serverless-jenkins
+  protect-tested-repos: true
+deck:
+  spyglass: {}
+gerrit: {}
+owners_dir_blacklist:
+  default: null
+  repos: null
+plank: {}
+pod_namespace: jx
+postsubmits:
+  dconde-jx-test/environment-houndautumn-dev:
+  - agent: tekton
+    branches:
+    - master
+    context: ""
+    name: promotion
+  dconde-jx-test/environment-houndautumn-production:
+  - agent: tekton
+    branches:
+    - master
+    context: ""
+    name: promotion
+  dconde-jx-test/environment-houndautumn-staging:
+  - agent: tekton
+    branches:
+    - master
+    context: ""
+    name: promotion
+  jenkins-x/dummy:
+  - agent: tekton
+    branches:
+    - master
+    context: ""
+    name: release
+presubmits:
+  dconde-jx-test/environment-houndautumn-dev:
+  - agent: tekton
+    always_run: true
+    context: promotion-build
+    name: promotion-build
+    rerun_command: /test this
+    trigger: (?m)^/test( all| this),?(\s+|$)
+  dconde-jx-test/environment-houndautumn-production:
+  - agent: tekton
+    always_run: true
+    context: promotion-build
+    name: promotion-build
+    rerun_command: /test this
+    trigger: (?m)^/test( all| this),?(\s+|$)
+  dconde-jx-test/environment-houndautumn-staging:
+  - agent: tekton
+    always_run: true
+    context: promotion-build
+    name: promotion-build
+    rerun_command: /test this
+    trigger: (?m)^/test( all| this),?(\s+|$)
+  jenkins-x/dummy:
+  - agent: tekton
+    always_run: true
+    context: serverless-jenkins
+    name: serverless-jenkins
+    rerun_command: /test this
+    trigger: (?m)^/test( all| this),?(\s+|$)
+prowjob_namespace: jx
+push_gateway: {}
+sinker: {}
+tide:
+  context_options:
+    from-branch-protection: true
+    required-if-present-contexts: null
+    skip-unknown-contexts: false
+  queries:
+  - missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/work-in-progress
+    - needs-ok-to-test
+    - needs-rebase
+    repos:
+    - dconde-jx-test/environment-houndautumn-dev
+    - dconde-jx-test/environment-houndautumn-production
+    - dconde-jx-test/environment-houndautumn-staging
+  - labels:
+    - approved
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/work-in-progress
+    - needs-ok-to-test
+    - needs-rebase
+    repos:
+    - jenkins-x/dummy
+  target_url: http://deck.jx.35.187.83.181.nip.io
