@@ -1,0 +1,108 @@
+approve:
+- lgtm_acts_as_approve: true
+  repos:
+  - dconde-jx-test/environment-houndautumn-dev
+  require_self_approval: true
+- lgtm_acts_as_approve: true
+  repos:
+  - dconde-jx-test/environment-houndautumn-production
+  require_self_approval: true
+- lgtm_acts_as_approve: true
+  repos:
+  - dconde-jx-test/environment-houndautumn-staging
+  require_self_approval: true
+- lgtm_acts_as_approve: true
+  repos:
+  - jenkins-x/dummy
+  require_self_approval: true
+blunderbuss: {}
+cat: {}
+cherry_pick_unapproved: {}
+config_updater:
+  maps:
+    env/prow/config.yaml:
+      name: config
+    env/prow/plugins.yaml:
+      name: plugins
+heart: {}
+owners: {}
+plugins:
+  dconde-jx-test/environment-houndautumn-dev:
+  - config-updater
+  - config-updater
+  - approve
+  - assign
+  - blunderbuss
+  - help
+  - hold
+  - lgtm
+  - lifecycle
+  - size
+  - trigger
+  - wip
+  - heart
+  - cat
+  - override
+  dconde-jx-test/environment-houndautumn-production:
+  - config-updater
+  - approve
+  - assign
+  - blunderbuss
+  - help
+  - hold
+  - lgtm
+  - lifecycle
+  - size
+  - trigger
+  - wip
+  - heart
+  - cat
+  - override
+  dconde-jx-test/environment-houndautumn-staging:
+  - config-updater
+  - approve
+  - assign
+  - blunderbuss
+  - help
+  - hold
+  - lgtm
+  - lifecycle
+  - size
+  - trigger
+  - wip
+  - heart
+  - cat
+  - override
+  jenkins-x/dummy:
+  - config-updater
+  - approve
+  - assign
+  - blunderbuss
+  - help
+  - hold
+  - lgtm
+  - lifecycle
+  - size
+  - trigger
+  - wip
+  - heart
+  - cat
+  - override
+requiresig: {}
+sigmention: {}
+slack: {}
+triggers:
+- repos:
+  - dconde-jx-test/environment-houndautumn-dev
+  trusted_org: dconde-jx-test
+- repos:
+  - dconde-jx-test/environment-houndautumn-production
+  trusted_org: dconde-jx-test
+- repos:
+  - dconde-jx-test/environment-houndautumn-staging
+  trusted_org: dconde-jx-test
+- repos:
+  - jenkins-x/dummy
+  trusted_org: jenkins-x
+welcome:
+- message_template: Welcome
